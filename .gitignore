@@ -21,3 +21,4 @@ bin-release/
 *.iml
 temp.png
 target
+b64.html
