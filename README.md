@@ -15,6 +15,39 @@
 - 强大：不惧怕设计师更改海报设计，无需更改代码，从容应对UI变更
 - 高效：只需拖拽组件就能生成海报的调用代码，极大降低开发人员的工作量
 
+### 示例代码
+
+```java
+public static void main(String[] args) throws IOException {
+
+  // 创建海报客户端对象
+  FastPosterClient client = new FastPosterClient("https://poster.prodapi.cn/", "ApfrIzxCoK1DwNZO", "EJCwlrnv6QZ0PCdvrWGi");
+
+  // 构造海报参数
+  HashMap<String, String> params = new HashMap<>();
+  // 暂未指定任何动态参数
+
+  // 海报ID
+  String posterId = "25";
+
+  // 获取下载地址
+  String url = client.getUrl(posterId, params);
+  System.out.println("url=" + url);
+
+  // 保存到本地
+  client.saveToPath(url, "temp.png");
+
+  // base64测试
+  String b64 = new String(client.getData(url.replace("/view/", "/b64/")));
+  System.out.println(b64);
+
+  // 验证
+  String data = "<img src=\"data:image/jpg;base64," + b64 + "\"/>";
+  FileUtils.writeStringToFile(new File("b64.html"), data, "utf-8");
+
+}
+```
+
 ### 三步完成海报开发工作
 
 #### 一、启动服务
